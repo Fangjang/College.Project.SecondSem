@@ -1,3 +1,6 @@
+/*
+* 2nd Sem College project using sfml 2.5.1 32bit
+*/
 #include"app.h"
 
 int main()

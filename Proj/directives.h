@@ -15,4 +15,4 @@
 #include<Windows.h>
 
 //Debug Codes
-#define LOG(X) std::cout << x std::endl;
+#define LOG(X); std::cout << x << std::endl;
