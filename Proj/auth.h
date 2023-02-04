@@ -12,6 +12,11 @@ private:
 	void render();
 	void checkMouseEvents();
 	void updateMousePos();
+	void updateTextBox();
+	void inputLogic(int charTyped);
+	void deleteLastChar();
+	void setSelected();
+	void typedOn(sf::Event input);
 	void DEBUG();
 
 	//Private Variables
@@ -23,6 +28,8 @@ private:
 
 	sf::RectangleShape pwBg;
 	sf::RectangleShape enterBg;
+	sf::RectangleShape enterBgAlpha;
+	bool enterHovered = false;;
 	std::vector<sf::RectangleShape> drawableRect;
 
 	//Enter button text
@@ -34,14 +41,17 @@ private:
 	//Text for Entered Password 
 	//and bool is its clicked and selected
 	sf::Text enteredPass;
+	std::ostringstream enteredPassStream;
 	bool isEnterTextBoxSelected;
+	int passLimit = 36;
 
 
 //Protected members
 protected:
 	//Protected members
-	void Authenticate(sf::RenderWindow* window, sf::Font& font);
+	void Authenticate(sf::RenderWindow* window,sf::Font& font);
 	void update();
+	void pollEv(sf::Event *tempEvent);
 	void updateRender();
 	
 	//Protected variables

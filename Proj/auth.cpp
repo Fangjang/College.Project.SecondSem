@@ -1,6 +1,7 @@
 #pragma once
 
 #include"auth.h"
+#include"app.h"
 
 //Private Fucntions
 void Auth::initAuth()
@@ -23,6 +24,11 @@ void Auth::initShapes()
 	enterBg.setSize(sf::Vector2f(150.f, 50.f));
 	enterBg.setPosition(sf::Vector2f(710.f, 350.f));
 	enterBg.setOutlineColor(sf::Color::White);
+
+	enterBgAlpha.setFillColor(sf::Color::White);
+	enterBgAlpha.setSize(sf::Vector2f(150.f, 50.f));
+	enterBgAlpha.setPosition(sf::Vector2f(710.f, 350.f));
+	enterBgAlpha.setOutlineColor(sf::Color::White);
 }
 
 void Auth::initTexts()
@@ -41,6 +47,14 @@ void Auth::initTexts()
 	enterPromptText.setStyle(sf::Text::Bold);
 	enterPromptText.setString("Please enter the password to login");
 
+	enteredPass.setFont(*font);
+	enteredPass.setCharacterSize(34);
+	enteredPass.setFillColor(sf::Color::Black);
+	enteredPass.setPosition(205.f, 352.f);
+	enteredPass.setStyle(sf::Text::Bold);
+	enteredPass.setString("");
+
+	enteredPassStream << "";
 }
 
 void Auth::render()
@@ -70,6 +84,10 @@ void Auth::checkMouseEvents()
 					break;
 				}
 			}
+			else
+			{
+				isEnterTextBoxSelected = false;
+			}
 			if (enterBg.getGlobalBounds().contains(mousePos))
 			{
 				MessageBox(NULL, L"Wrong Password. Please Enter the correct Password", L"Error",MB_OK | MB_ICONERROR);
@@ -80,12 +98,111 @@ void Auth::checkMouseEvents()
 	{
 		isMousePressedL = false;
 	}
+	if (enterBg.getGlobalBounds().contains(mousePos))
+	{
+		enterHovered = true;
+	}
+	else
+	{
+		enterHovered = false;
+	}
 }
 
 void Auth::updateMousePos()
 {
 	mousePos.x = sf::Mouse::getPosition(*window).x;
 	mousePos.y = sf::Mouse::getPosition(*window).y;
+}
+
+void Auth::updateTextBox()
+{
+	if (isEnterTextBoxSelected)
+	{
+		pwBg.setOutlineColor(sf::Color::Blue);
+		pwBg.setOutlineThickness(3.f);
+	}
+	else if (!isEnterTextBoxSelected)
+	{
+		pwBg.setOutlineColor(sf::Color::White);
+		pwBg.setOutlineThickness(1.f);
+	}
+	//Hover Effect on Enter button
+	if (enterHovered && (enterBg.getFillColor().a > 200))
+	{
+		sf::Color tempColor = enterBg.getFillColor();
+		enterBg.setFillColor(sf::Color(tempColor.r, tempColor.g, tempColor.b, tempColor.a - 10));
+	}
+	else if (!enterHovered && (enterBg.getFillColor().a < 255))
+	{
+		sf::Color tempColor = enterBg.getFillColor();
+		enterBg.setFillColor(sf::Color(tempColor.r, tempColor.g, tempColor.b, tempColor.a + 10));
+	}
+}
+
+void Auth::inputLogic(int charTyped)
+{
+	if ((charTyped != DELETE_KEY) && (charTyped != ENTER_KEY) && (charTyped != ESCAPE_KEY))
+	{
+		enteredPassStream << static_cast<char>(charTyped);
+	}
+	else if (charTyped == DELETE_KEY)
+	{
+		if (enteredPassStream.str().length() > 0)
+		{
+			deleteLastChar();
+		}
+	}
+	enteredPass.setString(enteredPassStream.str() + "_");
+}
+
+void Auth::deleteLastChar()
+{
+	std::string t = enteredPassStream.str();
+	std::string newT = "";
+	for (int i = 0; i < t.length() - 1; i++)
+	{
+		newT += t[i];
+	}
+	enteredPassStream.str("");
+	enteredPassStream << newT;
+	enteredPass.setString(enteredPassStream.str());
+}
+
+void Auth::setSelected()
+{
+	if (!isEnterTextBoxSelected && (enteredPassStream.str().length() > 0))
+	{
+		std::string t = enteredPassStream.str();
+		std::string newT = "";
+		for (int i = 0; i < t.length(); i++)
+		{
+			newT += t[i];
+		}
+		enteredPass.setString(newT);
+	}
+	if (!isEnterTextBoxSelected && (enteredPassStream.str().length() == 0))
+	{
+		enteredPass.setString("");
+	}
+}
+
+void Auth::typedOn(sf::Event input)
+{
+	if (isEnterTextBoxSelected)
+	{
+		int charTyped = input.text.unicode;
+		if (charTyped < 128)
+		{
+			if ((enteredPassStream.str().length()) <= passLimit)
+			{
+				inputLogic(charTyped);
+			}
+			else if ((enteredPassStream.str().length() > passLimit) && (charTyped == DELETE_KEY))
+			{
+				deleteLastChar();
+			}
+		}
+	}
 }
 
 //Public Functions
@@ -112,6 +229,8 @@ void Auth::update()
 {
 	checkMouseEvents();
 	updateMousePos();
+	updateTextBox();
+	setSelected();
 	DEBUG();
 }
 
@@ -121,6 +240,14 @@ void Auth::DEBUG()
 	std::cout << mousePos.x << " ||||||||| " << mousePos.y << std::endl;
 	std::cout << "isMousePressedL: " << isMousePressedL << std::endl;
 	std::cout << "isEnterTextBoxSelected: " << isEnterTextBoxSelected << std::endl;
+	std::cout << "enterHovered: " << enterHovered << std::endl;
+	std::cout << "passBox Front-end: " << enteredPass.getString().toAnsiString() << std::endl;
+	std::cout << "passBox Back-end: " << enteredPassStream.str() << std::endl;
+}
+
+void Auth::pollEv(sf::Event *tempEvent)
+{
+	typedOn(*tempEvent);
 }
 
 void Auth::updateRender()
@@ -129,8 +256,10 @@ void Auth::updateRender()
 	{
 	case true:
 		window->draw(pwBg);
+		window->draw(enterBgAlpha);
 		window->draw(enterBg);
 		window->draw(enterPromptText);
+		window->draw(enteredPass);
 		window->draw(enterText);
 		break;
 	case false:
