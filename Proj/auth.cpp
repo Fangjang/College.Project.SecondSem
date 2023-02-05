@@ -284,7 +284,6 @@ void Auth::Authenticate(sf::RenderWindow* window, sf::Font& font)
 void Auth::update()
 {
 	checkMouseEvents();
-	checkKeyEvents();
 	updateMousePos();
 	updateTextBox();
 	setSelected();

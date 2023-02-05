@@ -48,8 +48,6 @@ private:
 	std::ostringstream enteredPassStream;
 	bool isEnterTextBoxSelected;
 	int passLimit = 34;
-	int passEnteredLength = 0;
-
 
 //Protected members
 protected:
