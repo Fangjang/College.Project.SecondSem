@@ -8,11 +8,13 @@ private:
 	std::string PASSWORD = "fangjang";
 	//Private Functions
 	bool isPassCorrect();
+	void checkPass();
 	void initAuth();
 	void initShapes();
 	void initTexts();
 	void render();
 	void checkMouseEvents();
+	void checkKeyEvents();
 	void updateMousePos();
 	void updateTextBox();
 	void inputLogic(int charTyped);

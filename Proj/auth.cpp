@@ -15,6 +15,20 @@ bool Auth::isPassCorrect()
 	}
 }
 
+void Auth::checkPass()
+{
+	if (isPassCorrect())
+	{
+		MessageBox(NULL, L"Authentication Successful", L"Successful", MB_OK);
+		enteredPass.setString("");
+		enteredPassStream.str("");
+	}
+	else
+	{
+		MessageBox(NULL, L"Wrong Password. Please Enter the correct Password", L"Error", MB_OK | MB_ICONERROR);
+	}
+}
+
 //Private Fucntions
 void Auth::initAuth()
 {
@@ -102,17 +116,7 @@ void Auth::checkMouseEvents()
 			}
 			if (enterBg.getGlobalBounds().contains(mousePos))
 			{
-				if (isPassCorrect())
-				{
-					MessageBox(NULL, L"Authentication Successful", L"Successful", MB_OK);
-					enteredPass.setString("");
-					enteredPassStream.str("");
-				}
-				else
-				{
-					MessageBox(NULL, L"Wrong Password. Please Enter the correct Password", L"Error", MB_OK | MB_ICONERROR);
-				}
-				
+				checkPass();
 			}
 		}
 	}
@@ -128,6 +132,11 @@ void Auth::checkMouseEvents()
 	{
 		enterHovered = false;
 	}
+}
+
+void Auth::checkKeyEvents()
+{
+
 }
 
 void Auth::updateMousePos()
@@ -178,6 +187,19 @@ void Auth::inputLogic(int charTyped)
 		if (enteredPassStream.str().length() > 0)
 		{
 			deleteLastChar();
+		}
+	}
+	else if (charTyped == ENTER_KEY)
+	{
+		if (isPassCorrect())
+		{
+			MessageBox(NULL, L"Authentication Successful", L"Successful", MB_OK);
+			enteredPass.setString("");
+			enteredPassStream.str("");
+		}
+		else
+		{
+			MessageBox(NULL, L"Wrong Password. Please Enter the correct Password", L"Error", MB_OK | MB_ICONERROR);
 		}
 	}
 }
@@ -262,6 +284,7 @@ void Auth::Authenticate(sf::RenderWindow* window, sf::Font& font)
 void Auth::update()
 {
 	checkMouseEvents();
+	checkKeyEvents();
 	updateMousePos();
 	updateTextBox();
 	setSelected();
