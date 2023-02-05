@@ -3,6 +3,18 @@
 #include"auth.h"
 #include"app.h"
 
+bool Auth::isPassCorrect()
+{
+	if (enteredPassStream.str().compare(PASSWORD) == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 //Private Fucntions
 void Auth::initAuth()
 {
@@ -90,7 +102,17 @@ void Auth::checkMouseEvents()
 			}
 			if (enterBg.getGlobalBounds().contains(mousePos))
 			{
-				MessageBox(NULL, L"Wrong Password. Please Enter the correct Password", L"Error",MB_OK | MB_ICONERROR);
+				if (isPassCorrect())
+				{
+					MessageBox(NULL, L"Authentication Successful", L"Successful", MB_OK);
+					enteredPass.setString("");
+					enteredPassStream.str("");
+				}
+				else
+				{
+					MessageBox(NULL, L"Wrong Password. Please Enter the correct Password", L"Error", MB_OK | MB_ICONERROR);
+				}
+				
 			}
 		}
 	}
@@ -110,12 +132,14 @@ void Auth::checkMouseEvents()
 
 void Auth::updateMousePos()
 {
+	//Updates the mouse position
 	mousePos.x = sf::Mouse::getPosition(*window).x;
 	mousePos.y = sf::Mouse::getPosition(*window).y;
 }
 
 void Auth::updateTextBox()
 {
+	//Highlights the box if its selected
 	if (isEnterTextBoxSelected)
 	{
 		pwBg.setOutlineColor(sf::Color::Blue);
@@ -141,9 +165,13 @@ void Auth::updateTextBox()
 
 void Auth::inputLogic(int charTyped)
 {
+	//Input logic for the password text box
+	std::string tempString = enteredPass.getString().toAnsiString();
 	if ((charTyped != DELETE_KEY) && (charTyped != ENTER_KEY) && (charTyped != ESCAPE_KEY))
 	{
 		enteredPassStream << static_cast<char>(charTyped);
+		tempString += "*";
+		enteredPass.setString(tempString);
 	}
 	else if (charTyped == DELETE_KEY)
 	{
@@ -152,20 +180,22 @@ void Auth::inputLogic(int charTyped)
 			deleteLastChar();
 		}
 	}
-	enteredPass.setString(enteredPassStream.str() + "_");
 }
 
+//Function for deleting the last char of the text box
 void Auth::deleteLastChar()
 {
 	std::string t = enteredPassStream.str();
 	std::string newT = "";
+	std::string tempString = "";
 	for (int i = 0; i < t.length() - 1; i++)
 	{
 		newT += t[i];
+		tempString += "*";
 	}
 	enteredPassStream.str("");
 	enteredPassStream << newT;
-	enteredPass.setString(enteredPassStream.str());
+	enteredPass.setString(tempString);
 }
 
 void Auth::setSelected()
@@ -176,7 +206,7 @@ void Auth::setSelected()
 		std::string newT = "";
 		for (int i = 0; i < t.length(); i++)
 		{
-			newT += t[i];
+			newT += "*";
 		}
 		enteredPass.setString(newT);
 	}
@@ -200,6 +230,10 @@ void Auth::typedOn(sf::Event input)
 			else if ((enteredPassStream.str().length() > passLimit) && (charTyped == DELETE_KEY))
 			{
 				deleteLastChar();
+			}
+			if (charTyped == ESCAPE_KEY)
+			{
+				isEnterTextBoxSelected = false;
 			}
 		}
 	}

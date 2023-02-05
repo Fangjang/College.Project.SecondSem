@@ -5,7 +5,9 @@
 class Auth {
 //Private Members
 private:
+	std::string PASSWORD = "fangjang";
 	//Private Functions
+	bool isPassCorrect();
 	void initAuth();
 	void initShapes();
 	void initTexts();
@@ -43,7 +45,8 @@ private:
 	sf::Text enteredPass;
 	std::ostringstream enteredPassStream;
 	bool isEnterTextBoxSelected;
-	int passLimit = 36;
+	int passLimit = 34;
+	int passEnteredLength = 0;
 
 
 //Protected members

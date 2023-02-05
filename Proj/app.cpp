@@ -36,9 +36,9 @@ void App::eventUpdate()
 			break;
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::RAlt))
 	{
-		window->close();
+		ShowWindow(window->getSystemHandle(), SW_MINIMIZE);
 	}
 }
 
