@@ -2,10 +2,11 @@
 #define APP_H
 
 #include"auth.h"
+#include"exec.h"
 //Debug Codes
 
 //App Class
-class App : private Auth {
+class App : private Auth, private Exec{
 private:
 	//Private members
 	//Private Functions

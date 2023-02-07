@@ -75,6 +75,10 @@ bool App::isRunning()
 void App::update()
 {
 	eventUpdate();
+	if (Auth::checkAuth() == true)
+	{
+		appState = AppState::MENU;
+	}
 	switch (appState)
 	{
 	case App::AppState::AUTH:
@@ -91,6 +95,7 @@ void App::update()
 		}
 	}
 	case App::AppState::MENU:
+		
 		break;
 	default:
 		break;
@@ -108,6 +113,8 @@ void App::render()
 		Auth::updateRender();
 		break;
 	case App::AppState::MENU:
+		system("cls");
+		std::cout << "AppState::Menu" << std::endl;
 		break;
 	default:
 		break;

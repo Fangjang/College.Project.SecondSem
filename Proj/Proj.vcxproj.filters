@@ -19,6 +19,12 @@
     <Filter Include="Source Files\app">
       <UniqueIdentifier>{c354d39a-4e45-4a4e-ab43-25970553a08b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\exec">
+      <UniqueIdentifier>{118f39f3-1682-41a9-a6d9-d69600cf9318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objs">
+      <UniqueIdentifier>{477384f7-eb79-4e7a-a8bf-e6dfdbea0908}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -30,6 +36,15 @@
     <ClCompile Include="app.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
+    <ClCompile Include="exec.cpp">
+      <Filter>Source Files\exec</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Source Files\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="textBox.cpp">
+      <Filter>Source Files\objs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="auth.h">
@@ -40,6 +55,15 @@
     </ClInclude>
     <ClInclude Include="directives.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="exec.h">
+      <Filter>Source Files\exec</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Source Files\objs</Filter>
+    </ClInclude>
+    <ClInclude Include="textBox.h">
+      <Filter>Source Files\objs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -147,12 +147,18 @@
   <ItemGroup>
     <ClCompile Include="app.cpp" />
     <ClCompile Include="auth.cpp" />
+    <ClCompile Include="button.cpp" />
+    <ClCompile Include="exec.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="textBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h" />
     <ClInclude Include="auth.h" />
+    <ClInclude Include="button.h" />
     <ClInclude Include="directives.h" />
+    <ClInclude Include="exec.h" />
+    <ClInclude Include="textBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

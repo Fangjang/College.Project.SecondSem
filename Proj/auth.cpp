@@ -7,6 +7,7 @@ bool Auth::isPassCorrect()
 {
 	if (enteredPassStream.str().compare(PASSWORD) == 0)
 	{
+		auth = true;
 		return true;
 	}
 	else
@@ -81,6 +82,15 @@ void Auth::initTexts()
 	enteredPass.setString("");
 
 	enteredPassStream << "";
+
+
+	maxChar.setFont(*font);
+	maxChar.setCharacterSize(15);
+	maxChar.setFillColor(sf::Color::White);
+	maxChar.setPosition(200.f, 330.f);
+	std::ostringstream tempString; 
+	tempString << "Max character should be " << passLimit;
+	maxChar.setString(tempString.str());
 }
 
 void Auth::render()
@@ -316,10 +326,17 @@ void Auth::updateRender()
 		window->draw(enterBg);
 		window->draw(enterPromptText);
 		window->draw(enteredPass);
+		window->draw(maxChar);
 		window->draw(enterText);
 		break;
 	case false:
 	default:
 		break;
 	}
+}
+
+
+bool Auth::checkAuth()
+{
+	return auth;
 }
