@@ -14,6 +14,7 @@ void TextBox::initTextBox()
 //Initializes the text
 void TextBox::initText()
 {
+	textBox.setFont(*font);
 	textBox.setFillColor(sf::Color::Black);
 	textBox.setCharacterSize(16);
 	textBox.setString("Text Here");
