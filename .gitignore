@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /include/SFML
 /lib
+/Proj/Fonts
+/Proj/*.dll
