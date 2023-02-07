@@ -7,16 +7,22 @@ private:
 	//Private memebers
 	//Private Functions
 	void initTextBox();
-	void hoverEffect();
+	void initText();
+	void clickEvents();
+	void updateMosPos();
 	//Render window related varibles
 	sf::RenderWindow* window;
 	sf::Event *ev;
 	sf::Font *font;
-	sf::Color colorDefault;
-	sf::Color colorHover;
+
+	//Variables
+	bool mouseClicked = false;
+	bool selected = false;
+	sf::Vector2f position;
+	sf::Vector2f mosPos;
+
 	//Texts Box
 	sf::RectangleShape textBg;
-
 	//Texts
 	sf::Text textBox;
 	std::ostringstream text;
@@ -25,7 +31,11 @@ public:
 	//Public memebers
 	//Public functions
 	//COnstructors and destructors
-	TextBox(sf::RenderWindow* window, sf::Event* ev, sf::Font* font);
+	TextBox(sf::RenderWindow* window, sf::Font* font);
 	~TextBox();
 
+	void update();
+	void setPosition(sf::Vector2f pos);
+	sf::Vector2f getPosition();
+	void draw();
 };

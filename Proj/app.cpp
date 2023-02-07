@@ -93,9 +93,20 @@ void App::update()
 		default:
 			break;
 		}
+		break;
 	}
 	case App::AppState::MENU:
-		
+		switch (Exec::getStarted())
+		{
+		case false:
+			Exec::init(window, &font);
+			break;
+		case true:
+			Exec::update();
+			break;
+		default:
+			break;
+		}
 		break;
 	default:
 		break;
@@ -113,6 +124,7 @@ void App::render()
 		Auth::updateRender();
 		break;
 	case App::AppState::MENU:
+		Exec::draw();
 		system("cls");
 		std::cout << "AppState::Menu" << std::endl;
 		break;
