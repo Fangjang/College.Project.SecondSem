@@ -102,6 +102,7 @@ void App::update()
 			Exec::init(window, &font);
 			break;
 		case true:
+			std::cout << "Exec Update" << std::endl;
 			Exec::update();
 			break;
 		default:

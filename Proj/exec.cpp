@@ -4,12 +4,14 @@
 //Private functions
 void Exec::initTextBoxes()
 {
-	textBoxes.push_back(TextBox(this->window, this->font));
+	textBox = new TextBox(window, font);
+	textBoxes.push_back(*textBox);
 }
 
 //Public Functions
 void Exec::init(sf::RenderWindow* window, sf::Font* font)
 {
+	this->started = true;
 	this->window = window;
 	this->font = font;
 	initTextBoxes();
@@ -22,10 +24,7 @@ bool Exec::getStarted()
 
 void Exec::update()
 {
-	for (auto& i : textBoxes)
-	{
-		i.update();
-	}
+	textBox->update();
 }
 
 void Exec::pollEvents()
@@ -35,8 +34,5 @@ void Exec::pollEvents()
 
 void Exec::draw()
 {
-	for (auto& i : textBoxes)
-	{
-		i.draw();
-	}
+	textBox->draw();
 }

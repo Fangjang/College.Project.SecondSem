@@ -11,6 +11,8 @@ private:
 	sf::RenderWindow* window;
 	sf::Font* font;
 
+	TextBox *textBox;
+
 	//Variables
 	bool started = false;
 	std::vector<TextBox> textBoxes;

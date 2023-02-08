@@ -8,19 +8,19 @@
 void TextBox::initTextBox()
 {
 	textBg.setFillColor(sf::Color::White);
-	textBg.setSize(sf::Vector2f(60.f, 100.f));
+	textBg.setSize(sf::Vector2f(150.f, 60.f));
 }
 
 //Initializes the text
 void TextBox::initText()
 {
-	textBox.setFont(*font);
-	textBox.setFillColor(sf::Color::Black);
-	textBox.setCharacterSize(16);
-	textBox.setString("Text Here");
-	textBox.setString("Text Here");
+	textFront.setFont(*font);
+	textFront.setFillColor(sf::Color::Black);
+	textFront.setCharacterSize(16);
+	textFront.setString("Text Here");
+	textFront.setString("Text Here");
 
-	text.str() = "Text Here";
+	text = "Text Here";
 }
 
 //Checks for the mouse click events
@@ -72,8 +72,9 @@ void TextBox::clickEvents()
 
 void TextBox::updateMosPos()
 {
-	mosPos.x = sf::Mouse::getPosition().x;
-	mosPos.y = sf::Mouse::getPosition().y;
+	mosPos.x = sf::Mouse::getPosition(*window).x;
+	mosPos.y = sf::Mouse::getPosition(*window).y;
+	std::cout << mosPos.x << " \\\ " << mosPos.y << std::endl;
 }
 
 //Public Functions
@@ -89,7 +90,9 @@ TextBox::TextBox(sf::RenderWindow* window, sf::Font* fnt)
 //Destructor
 TextBox::~TextBox()
 {
-
+	delete this->window;
+	delete this->ev;
+	delete this->font;
 }
 
 void TextBox::update()
@@ -101,7 +104,8 @@ void TextBox::update()
 //Sets the position for the text box
 void TextBox::setPosition(sf::Vector2f pos)
 {
-
+	this->textBg.setPosition(pos);
+	this->textFront.setPosition(pos);
 }
 
 //Return the position of the text box
@@ -110,8 +114,9 @@ sf::Vector2f TextBox::getPosition()
 	return textBg.getPosition();
 }
 
+
 void TextBox::draw()
 {
 	window->draw(textBg);
-	window->draw(textBox);
+	window->draw(textFront);
 }

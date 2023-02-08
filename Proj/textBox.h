@@ -18,14 +18,14 @@ private:
 	//Variables
 	bool mouseClicked = false;
 	bool selected = false;
-	sf::Vector2f position;
+	sf::Vector2f position = sf::Vector2f(0.f, 0.f);
 	sf::Vector2f mosPos;
 
 	//Texts Box
 	sf::RectangleShape textBg;
 	//Texts
-	sf::Text textBox;
-	std::ostringstream text;
+	sf::Text textFront;
+	std::string text;
 
 public:
 	//Public memebers
