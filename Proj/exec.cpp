@@ -1,10 +1,14 @@
-#include "exec.h"
 #pragma once
+#include "exec.h"
 
 //Private functions
 void Exec::initTextBoxes()
 {
 	textBox = new TextBox(window, font);
+	textBox->setPosition(sf::Vector2f(100.f, 100.f));
+	textBox->changeTextPos(sf::Vector2f(5.f, 5.f));
+	textBox->setSize(sf::Vector2f(400.f, 50.f));
+	textBox->setFontSize(29);
 	textBoxes.push_back(*textBox);
 }
 

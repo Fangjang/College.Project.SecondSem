@@ -21,4 +21,4 @@
 #define ESCAPE_KEY 27
 
 //Debug Codes
-#define LOG(X); std::cout << x << std::endl;
+#define LOG(X) std::cout << x << std::endl

@@ -36,6 +36,11 @@ public:
 
 	void update();
 	void setPosition(sf::Vector2f pos);
+	void changeTextPos(sf::Vector2f dist);
+	void setSize(sf::Vector2f size);
+	void setFontSize(unsigned int fontSize);
+	void setTextBoxColor(sf::Color color);
+	void setTextColor(sf::Color color);
 	sf::Vector2f getPosition();
 	void draw();
 };

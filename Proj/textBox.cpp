@@ -108,12 +108,41 @@ void TextBox::setPosition(sf::Vector2f pos)
 	this->textFront.setPosition(pos);
 }
 
+//Changes the position of the text relative to the text box
+void TextBox::changeTextPos(sf::Vector2f dist)
+{
+	textFront.setPosition(this->textFront.getPosition() + dist);
+}
+
+//Sets the size for the text box
+void TextBox::setSize(sf::Vector2f size)
+{
+	this->textBg.setSize(size);
+}
+
+//sets font size for the text box
+void TextBox::setFontSize(unsigned int fontSize)
+{
+	this->textFront.setCharacterSize(fontSize);
+}
+
+//Sets the background color for the textbox
+void TextBox::setTextBoxColor(sf::Color color)
+{
+	this->textBg.setFillColor(color);
+}
+
+//sets the text color for the text
+void TextBox::setTextColor(sf::Color color)
+{
+	this->textFront.setFillColor(color);
+}
+
 //Return the position of the text box
 sf::Vector2f TextBox::getPosition()
 {
 	return textBg.getPosition();
 }
-
 
 void TextBox::draw()
 {

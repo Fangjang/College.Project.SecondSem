@@ -28,6 +28,7 @@ void App::eventUpdate()
 		{
 		case sf::Event::Closed:
 			window->close();
+			exit(0);
 			break;
 		case sf::Event::TextEntered:
 			Auth::pollEv(&(this->ev));
